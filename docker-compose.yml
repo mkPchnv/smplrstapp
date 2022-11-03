@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  app:
+    image: smplrstapp
+    container_name: smplrstapp
+    ports:
+      - "8020:8020"
+    depends_on:
+      - "db"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/root/
+    env_file: 
+      - ./.env
+
+  db:
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "smplrstapp"
+    volumes:
+      - /Users/sntfbndck/_wrk_/volumes-docker/postgres:/var/lib/postgresql/data
