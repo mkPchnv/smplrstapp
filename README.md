@@ -23,7 +23,7 @@ Create .env file in root directory and add following values:
 ```dotenv
 APP_ENV=local
 
-POSTGRES_HOST=localhost
+POSTGRES_HOST=(db: docker-compose / localhost: ide)
 POSTGRES_PORT=5432
 POSTGRES_USERNAME=postgres
 POSTGRES_PASSWORD=postgres
