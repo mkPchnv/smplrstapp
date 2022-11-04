@@ -17,14 +17,13 @@ func GetParamFromRequest(request *http.Request, key string, message string) (str
 	return "", errors.New(message)
 }
 
-func GetModelFromBodyRequest(request *http.Request) (*map[string]interface{}, error) {
-	var result map[string]interface{}
+func GetModelFromBodyRequest(request *http.Request, model interface{}) error {
 	decoder := json.NewDecoder(request.Body)
-	if err := decoder.Decode(&result); err != nil {
-		return nil, errors.New(err.Error())
+	if err := decoder.Decode(&model); err != nil {
+		return errors.New(err.Error())
 	}
 
-	return &result, nil
+	return nil
 }
 
 func GetQueryFromRequest(request *http.Request, key string, message string) (*[]string, error) {

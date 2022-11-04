@@ -11,7 +11,6 @@ import (
 	"smplrstapp/internal/utils/time"
 
 	"github.com/gorilla/mux"
-	"github.com/mitchellh/mapstructure"
 )
 
 type activityHandler struct {
@@ -40,16 +39,10 @@ func (h *activityHandler) Register(router *mux.Router) {
 // @Failure      500  {object}  string
 // @Router       /activities [post]
 func (h *activityHandler) AddActivity(writer http.ResponseWriter, request *http.Request) {
-	jsonDto, err := req.GetModelFromBodyRequest(request)
+	valueDto := &dto.ActivityCreateDto{}
+	err := req.GetModelFromBodyRequest(request, valueDto)
 	if check(err) {
 		resp.RespondWithError(&writer, http.StatusBadRequest, err.Error())
-		return
-	}
-
-	var valueDto dto.ActivityCreateDto
-	err = mapstructure.Decode(jsonDto, &valueDto)
-	if check(err) {
-		resp.RespondWithError(&writer, http.StatusBadRequest, errInvalidBody)
 		return
 	}
 

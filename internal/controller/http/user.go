@@ -12,7 +12,6 @@ import (
 	"smplrstapp/internal/utils/resp"
 
 	"github.com/gorilla/mux"
-	"github.com/mitchellh/mapstructure"
 )
 
 type userHandler struct {
@@ -70,16 +69,10 @@ func (h *userHandler) GetUserById(writer http.ResponseWriter, request *http.Requ
 // @Failure      500  {object}  string
 // @Router       /users [post]
 func (h *userHandler) AddUser(writer http.ResponseWriter, request *http.Request) {
-	jsonDto, err := req.GetModelFromBodyRequest(request)
+	valueDto := &dto.UserCreateDto{}
+	err := req.GetModelFromBodyRequest(request, valueDto)
 	if check(err) {
 		resp.RespondWithError(&writer, http.StatusBadRequest, err.Error())
-		return
-	}
-
-	var valueDto dto.UserCreateDto
-	err = mapstructure.Decode(jsonDto, &valueDto)
-	if check(err) {
-		resp.RespondWithError(&writer, http.StatusBadRequest, errInvalidBody)
 		return
 	}
 
