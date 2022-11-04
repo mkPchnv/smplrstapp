@@ -21,8 +21,8 @@ type Activity struct {
 	DeletedAt    *time.Time    `json:"deleted_at,omitempty" gorm:"index" swaggertype:"primitive,string"`
 }
 
-func CreateActivity(userId string, sport string, distance float64, trainigDate time.Time, duration int) *Activity {
-	return &Activity{
+func CreateActivity(userId string, sport string, distance float64, trainigDate time.Time, duration int) Activity {
+	return Activity{
 		ID:           strings.ToLower(string(uuid.New().String())),
 		Sport:        Sport(sport),
 		Distance:     distance,

@@ -12,7 +12,7 @@ type activityService struct {
 }
 
 type ActivityService interface {
-	Create(ctx context.Context, activity *entity.Activity) (*entity.Activity, error)
+	Create(ctx context.Context, activity entity.Activity) (entity.Activity, error)
 }
 
 func NewActivityService(activityRepo *repository.ActivityRepository, userRepo *repository.UserRepository) ActivityService {
@@ -22,9 +22,9 @@ func NewActivityService(activityRepo *repository.ActivityRepository, userRepo *r
 	}
 }
 
-func (s *activityService) Create(ctx context.Context, activity *entity.Activity) (*entity.Activity, error) {
-	if !s.userRepo.ExistById(ctx, (*activity).UserID) {
-		return nil, repository.ErrForeignKeyNotExist
+func (s *activityService) Create(ctx context.Context, activity entity.Activity) (entity.Activity, error) {
+	if !s.userRepo.ExistById(ctx, (activity).UserID) {
+		return entity.Activity{}, repository.ErrForeignKeyNotExist
 	}
 
 	return s.activityRepo.Create(ctx, activity)
