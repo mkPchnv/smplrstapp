@@ -19,11 +19,7 @@ func GetParamFromRequest(request *http.Request, key string, message string) (str
 
 func GetModelFromBodyRequest(request *http.Request, model interface{}) error {
 	decoder := json.NewDecoder(request.Body)
-	if err := decoder.Decode(&model); err != nil {
-		return errors.New(err.Error())
-	}
-
-	return nil
+	return decoder.Decode(&model)
 }
 
 func GetQueryFromRequest(request *http.Request, key string, message string) (*[]string, error) {
