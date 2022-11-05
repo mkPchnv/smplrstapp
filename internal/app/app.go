@@ -96,8 +96,12 @@ func initComposites(router *mux.Router) {
 	}
 
 	fmt.Println("create psql repository")
+
+	dbLogger := repository.NewDatabaseLogger()
 	dbUrl := cfg.Postgres.GetConnectionString()
-	gormDB, err := gorm.Open(postgres.Open(dbUrl))
+	gormDB, err := gorm.Open(postgres.Open(dbUrl), &gorm.Config{
+		Logger: dbLogger,
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
