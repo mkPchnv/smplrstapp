@@ -22,12 +22,12 @@ func GetModelFromBodyRequest(request *http.Request, model interface{}) error {
 	return decoder.Decode(&model)
 }
 
-func GetQueryFromRequest(request *http.Request, key string, message string) (*[]string, error) {
+func GetQueryFromRequest(request *http.Request, key string, message string) ([]string, error) {
 	var result []string
 	result, present := request.URL.Query()[key]
 	if !present || len(result) == 0 {
-		return &result, errors.New(message)
+		return result, errors.New(message)
 	}
 
-	return &result, nil
+	return result, nil
 }

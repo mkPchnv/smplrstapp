@@ -101,13 +101,13 @@ func (h *userHandler) AddUser(writer http.ResponseWriter, request *http.Request)
 func (h *userHandler) GetAllUsers(writer http.ResponseWriter, request *http.Request) {
 	var limit, offset = 10, 0
 	limits, _ := req.GetQueryFromRequest(request, limitQueryParam, emptyMessage)
-	if *limits != nil && len(*limits) == 1 {
-		limit, _ = strconv.Atoi((*limits)[0])
+	if len(limits) == 1 {
+		limit, _ = strconv.Atoi(limits[0])
 	}
 
 	offsets, _ := req.GetQueryFromRequest(request, offsetQueryParam, emptyMessage)
-	if *offsets != nil && len(*offsets) == 1 {
-		offset, _ = strconv.Atoi((*offsets)[0])
+	if len(offsets) == 1 {
+		offset, _ = strconv.Atoi(offsets[0])
 	}
 
 	result, err := h.service.GetAll(request.Context(), limit, offset)
