@@ -7,11 +7,9 @@ import (
 	"github.com/google/uuid"
 )
 
-type Sport string
-
 type Activity struct {
 	ID           string        `json:"id" gorm:"primaryKey"`
-	Sport        Sport         `json:"sport" gorm:"not null"`
+	Sport        Sport         `json:"sport" gorm:"not null" enums:"run,swim,bike"`
 	Distance     float64       `json:"distance" gorm:"not null"`
 	TrainingDate time.Time     `json:"training_date" swaggertype:"primitive,string" gorm:"not null"`
 	Duration     time.Duration `json:"duration" swaggertype:"primitive,integer" gorm:"not null"`
@@ -21,7 +19,7 @@ type Activity struct {
 	DeletedAt    *time.Time    `json:"deleted_at,omitempty" gorm:"index" swaggertype:"primitive,string"`
 }
 
-func CreateActivity(userId string, sport string, distance float64, trainigDate time.Time, duration int) Activity {
+func CreateActivity(userId string, sport Sport, distance float64, trainigDate time.Time, duration int) Activity {
 	return Activity{
 		ID:           strings.ToLower(string(uuid.New().String())),
 		Sport:        Sport(sport),

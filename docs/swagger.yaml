@@ -7,6 +7,11 @@ definitions:
       duration:
         type: integer
       sport:
+        enum:
+        - run
+        - swim
+        - bike
+        example: bike
         type: string
       training_date:
         type: string
@@ -37,6 +42,10 @@ definitions:
       id:
         type: string
       sport:
+        enum:
+        - run
+        - swim
+        - bike
         type: string
       training_date:
         type: string

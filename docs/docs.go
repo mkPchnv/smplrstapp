@@ -238,7 +238,13 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "sport": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "run",
+                        "swim",
+                        "bike"
+                    ],
+                    "example": "bike"
                 },
                 "training_date": {
                     "type": "string"
@@ -284,7 +290,12 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "sport": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "run",
+                        "swim",
+                        "bike"
+                    ]
                 },
                 "training_date": {
                     "type": "string"
